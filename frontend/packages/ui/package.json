@@ -6,6 +6,7 @@
     "./package.json": "./package.json",
     "./react/*": "./react/*.ts",
     "./vue/*": "./vue/*.ts",
+    "./svelte/*": "./svelte/*.ts",
     "./styles/*": "./styles/*"
   },
   "devDependencies": {
@@ -16,7 +17,10 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@internationalized/date": "^3.12.4",
     "base-ui-vue": "^0.5.0",
+    "bits-ui": "^2.20.2",
+    "svelte": "^5.57.3",
     "vue": "^3.5.44"
   }
 }
