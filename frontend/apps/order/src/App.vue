@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import typographyStyles from '@repo/ui/styles/typography.module.css'
 </script>
 
 <template>
-  <nav>
-    <RouterLink to="/">Home</RouterLink>
-    <RouterLink to="/about">About</RouterLink>
-  </nav>
+  <div :class="typographyStyles.Typography">
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
+    </nav>
 
-  <RouterView />
+    <RouterView />
+  </div>
 </template>
 
 <style scoped>

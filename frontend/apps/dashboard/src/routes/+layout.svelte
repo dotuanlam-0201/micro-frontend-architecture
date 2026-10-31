@@ -1,10 +1,12 @@
 <script lang="ts">
 	import type { LayoutProps } from './$types';
-	import '@repo/ui/styles/typography.module.css';
+	import typographyStyles from '@repo/ui/styles/typography.module.css';
 
 	let { children }: LayoutProps = $props();
 </script>
 
-<main>
-	{@render children()}
-</main>
+<div class={typographyStyles.Typography}>
+	<main>
+		{@render children()}
+	</main>
+</div>

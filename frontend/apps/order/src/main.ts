@@ -1,5 +1,3 @@
-import '@repo/ui/styles/typography.module.css'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
