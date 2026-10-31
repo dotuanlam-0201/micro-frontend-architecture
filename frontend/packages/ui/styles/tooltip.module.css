@@ -1,2 +1,12 @@
-.Tooltip {
+.Popup {
+  padding: 0.4em 0.7em;
+  border-radius: 0.4em;
+  background: var(--color-heading);
+  color: var(--color-bg);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.Arrow svg {
+  fill: var(--color-heading);
 }

@@ -1,4 +1,4 @@
-import Button from "@repo/ui/react/Button"
+import Link from "next/link"
 import buttonStyles from "@repo/ui/styles/button.module.css"
 
 export default function Home() {
@@ -20,7 +20,9 @@ export default function Home() {
         Every component ships unstyled by default — bring your own CSS, or
         reuse the modules in <code>packages/ui/styles</code>.
       </blockquote>
-      <Button className={buttonStyles.Button}>Browse components</Button>
+      <Link href="/components" className={buttonStyles.Button}>
+        Browse components
+      </Link>
     </main>
   )
 }
