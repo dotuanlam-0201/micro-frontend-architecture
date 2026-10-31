@@ -1,0 +1,27 @@
+.Root {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.Label,
+.Value {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.Track {
+  position: relative;
+  height: 0.5em;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.Indicator {
+  position: absolute;
+  background: var(--color-link);
+  border-radius: 999px;
+}

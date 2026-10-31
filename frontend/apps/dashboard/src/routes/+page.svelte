@@ -1,54 +1,24 @@
 <script lang="ts">
-	import Counter from './Counter.svelte';
+	import Button from '@repo/ui/svelte/Button';
+	import buttonStyles from '@repo/ui/styles/button.module.css';
 </script>
 
 <svelte:head>
-	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<title>dashboard</title>
 </svelte:head>
 
-<section>
-	<h1>
-		<span class="welcome">
-			<enhanced:img class="welcome-image" src="#lib/images/svelte-welcome.png" alt="Welcome" />
-		</span>
-
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
-</section>
-
-<style>
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 0.6;
-	}
-
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome-image {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
-</style>
+<h1>dashboard</h1>
+<p>
+	The internal admin dashboard for this monorepo, built with SvelteKit and rendered with headless
+	components from <code>@repo/ui</code>.
+</p>
+<ul>
+	<li>Native, unstyled primitives from Bits UI (Svelte)</li>
+	<li>
+		Shared styling through CSS modules in <code>packages/ui/styles</code>
+	</li>
+	<li>
+		Ships alongside <code>web</code> and <code>docs</code> in the same Turborepo workspace
+	</li>
+</ul>
+<Button.Root class={buttonStyles.Button}>View reports</Button.Root>

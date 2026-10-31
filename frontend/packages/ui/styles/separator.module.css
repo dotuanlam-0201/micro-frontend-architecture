@@ -1,0 +1,13 @@
+.Separator {
+  border: none;
+  background: var(--color-border);
+  height: 1px;
+  width: 100%;
+  margin: 1.5em 0;
+}
+
+.Separator[data-orientation="vertical"] {
+  width: 1px;
+  height: auto;
+  margin: 0 1.5em;
+}

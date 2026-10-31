@@ -1,0 +1,42 @@
+.Root {
+  width: 100%;
+}
+
+.List {
+  position: relative;
+  display: flex;
+  gap: 1.5em;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.Tab {
+  padding: 0.6em 0.1em;
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.Tab[data-active] {
+  color: var(--color-link);
+}
+
+.Indicator {
+  position: absolute;
+  bottom: 0;
+  height: 2px;
+  left: var(--active-tab-left);
+  width: var(--active-tab-width);
+  background: var(--color-link);
+  transition:
+    left 0.2s ease,
+    width 0.2s ease;
+}
+
+.Panel {
+  padding: 1em 0;
+  color: var(--color-text-muted);
+}

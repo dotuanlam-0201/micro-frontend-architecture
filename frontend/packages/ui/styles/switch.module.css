@@ -1,0 +1,39 @@
+.Root {
+  display: inline-flex;
+  align-items: center;
+  width: 2.25em;
+  height: 1.25em;
+  padding: 0.15em;
+  border: none;
+  border-radius: 999px;
+  background: var(--color-border);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.Root[data-checked] {
+  background: var(--color-link);
+}
+
+.Root:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-link) 40%, transparent);
+}
+
+.Root[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.Thumb {
+  width: 0.95em;
+  height: 0.95em;
+  border-radius: 50%;
+  background: #ffffff;
+  transform: translateX(0);
+  transition: transform 0.15s ease;
+}
+
+.Thumb[data-checked] {
+  transform: translateX(1em);
+}

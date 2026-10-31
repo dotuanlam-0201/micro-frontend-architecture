@@ -1,0 +1,52 @@
+.Root {
+  border-top: 1px solid var(--color-border);
+}
+
+.Item {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.Header {
+  margin: 0;
+}
+
+.Trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.9em 0.1em;
+  background: none;
+  border: none;
+  color: var(--color-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.Trigger::after {
+  content: "";
+  flex-shrink: 0;
+  width: 0.5em;
+  height: 0.5em;
+  margin-left: 1em;
+  border-right: 2px solid var(--color-text-muted);
+  border-bottom: 2px solid var(--color-text-muted);
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.Trigger[data-panel-open]::after {
+  transform: rotate(-135deg);
+}
+
+.Panel {
+  overflow: hidden;
+}
+
+.Panel p {
+  margin: 0 0 1em;
+  color: var(--color-text-muted);
+}
