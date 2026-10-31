@@ -15,4 +15,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  envPrefix: ['VITE_', 'PORT_'],
+  server: {
+    port: Number(process.env.PORT_ORDER) || 5173,
+    strictPort: true,
+  },
 })

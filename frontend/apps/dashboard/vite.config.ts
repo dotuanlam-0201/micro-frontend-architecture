@@ -15,4 +15,9 @@ export default defineConfig({
       adapter: adapter(),
     }),
   ],
+  envPrefix: ["VITE_", "PORT_"],
+  server: {
+    port: Number(process.env.PORT_DASHBOARD) || 5174,
+    strictPort: true,
+  },
 });

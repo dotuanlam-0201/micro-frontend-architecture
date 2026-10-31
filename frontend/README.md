@@ -1,159 +1,85 @@
-# Turborepo starter
+# micro-frontend-architecture
 
-This Turborepo starter is maintained by the Turborepo core team.
+A showcase Turborepo monorepo demonstrating a micro-frontend setup: four independently
+built/run apps across three different frontend frameworks, sharing one headless design
+system.
 
-## Using this example
+## Apps
 
-Run the following command:
+| App         | Framework         | Local URL               |
+| ----------- | ----------------- | ------------------------ |
+| `web`       | Next.js (React)   | http://localhost:3000    |
+| `docs`      | Next.js (React)   | http://localhost:3001    |
+| `order`     | Vite + Vue         | http://localhost:5173    |
+| `dashboard` | SvelteKit (Svelte) | http://localhost:5174    |
 
-```sh
-npx create-turbo@latest
-```
+Each app is independently deployable and owns its own routing — there's no shared router or
+runtime embedding between them. A small nav bar in every app's root layout links to the other
+three (using their local ports above), so navigating between apps feels cohesive even though
+each one is a separate build.
 
-## What's inside?
+## Shared design system — `@repo/ui`
 
-This Turborepo includes the following packages/apps:
+All four apps render UI through `packages/ui`, which re-exports headless, unstyled components
+per framework:
 
-### Apps and Packages
+- `packages/ui/react` — [Base UI](https://base-ui.com) components, used by `web` and `docs`
+- `packages/ui/vue` — [Base UI Vue](https://www.npmjs.com/package/base-ui-vue) components, used by `order`
+- `packages/ui/svelte` — [Bits UI](https://bits-ui.com) components, used by `dashboard`
+- `packages/ui/styles` — plain CSS Modules (one per component, e.g. `button.module.css`), shared
+  as-is across every framework since CSS doesn't care who rendered the DOM, plus
+  `typography.module.css` for shared base typography/tokens
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `@next/eslint-plugin-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+Every component is a thin default re-export of its underlying headless primitive — no styling
+baked in. Styling lives entirely in `packages/ui/styles` and is opted into per app.
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+## Getting started
 
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
-```
-
-Without global `turbo`, use your package manager:
+Install once from `frontend/`:
 
 ```sh
-cd my-turborepo
-npx turbo build
-bun exec turbo build
-bun exec turbo build
+bun install
+cp .env.example .env
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Run everything at once:
 
 ```sh
-turbo build --filter=docs
+bun run dev
+# (or, with turbo installed globally: turbo dev)
 ```
 
-Without global `turbo`:
-
-```sh
-npx turbo build --filter=docs
-bun exec turbo build --filter=docs
-bun exec turbo build --filter=docs
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo dev
-bun exec turbo dev
-bun exec turbo dev
-```
-
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+Run a single app:
 
 ```sh
 turbo dev --filter=web
+turbo dev --filter=docs
+turbo dev --filter=order
+turbo dev --filter=dashboard
 ```
 
-Without global `turbo`:
+Build everything:
 
 ```sh
-npx turbo dev --filter=web
-bun exec turbo dev --filter=web
-bun exec turbo dev --filter=web
+turbo build
 ```
 
-### Remote Caching
+### Local routing & ports
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+Since nothing is deployed, "routing" between apps is just plain links between local ports.
+Every port lives in `.env.example` (copy to `.env` to override — gitignored) as
+`PORT_WEB` / `PORT_DOCS` / `PORT_ORDER` / `PORT_DASHBOARD`; nothing is hardcoded in app code.
+Turborepo is told about these via `globalEnv` in `turbo.json`, and each app's `dev` script loads
+`../../.env` (via `bun --env-file`) before starting, falling back to the defaults in the table
+above if `.env` doesn't exist. The Next apps expose the vars to client code through
+`next.config.js`'s `env` field; the Vite-based apps (`order`, `dashboard`) expose them through
+`envPrefix: ['VITE_', 'PORT_']`, so the nav bar in each app reads the real port instead of a
+hardcoded URL.
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+## What's inside
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo login
-```
-
-Without global `turbo`, use your package manager:
-
-```sh
-cd my-turborepo
-npx turbo login
-bun exec turbo login
-bun exec turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
-
-```sh
-turbo link
-```
-
-Without global `turbo`:
-
-```sh
-npx turbo link
-bun exec turbo link
-bun exec turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+- `apps/web`, `apps/docs` — Next.js (React) apps
+- `apps/order` — Vite + Vue SPA
+- `apps/dashboard` — SvelteKit app
+- `packages/ui` — the shared, per-framework headless component library described above
+- `packages/eslint-config`, `packages/typescript-config` — shared lint/TS config

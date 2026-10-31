@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   description: "web app",
 };
 
+const apps = [
+  { name: "web", url: `http://localhost:${process.env.PORT_WEB}` },
+  { name: "docs", url: `http://localhost:${process.env.PORT_DOCS}` },
+  { name: "order", url: `http://localhost:${process.env.PORT_ORDER}` },
+  { name: "dashboard", url: `http://localhost:${process.env.PORT_DASHBOARD}` },
+];
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -24,6 +31,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
+        <nav style={{ display: "flex", gap: "1.25rem", maxWidth: "42rem", margin: "0 auto", padding: "1.25rem 1.5rem 0" }}>
+          {apps.map((app) => (
+            <a
+              key={app.name}
+              href={app.url}
+              style={app.name === "web" ? { color: "var(--color-link)" } : undefined}
+            >
+              {app.name}
+            </a>
+          ))}
+        </nav>
         {children}
       </body>
     </html>
