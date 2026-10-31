@@ -1,26 +1,22 @@
 {
   "name": "@repo/ui",
-  "version": "0.0.0",
+  "type": "module",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
-  },
-  "scripts": {
-    "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
-    "check-types": "tsc --noEmit"
+    "./package.json": "./package.json",
+    "./react/*": "./react/*.ts",
+    "./vue/*": "./vue/*.ts",
+    "./styles/*": "./styles/*"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@types/node": "26.4.1",
-    "@types/react": "19.2.18",
-    "@types/react-dom": "19.2.5",
-    "eslint": "10.9.1",
-    "typescript": "7.0.2"
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   },
   "dependencies": {
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "@base-ui/react": "^1.9.0",
+    "base-ui-vue": "^0.5.0",
+    "vue": "^3.5.44"
   }
 }
